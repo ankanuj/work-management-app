@@ -1,0 +1,28 @@
+/* task Column container css */
+.tskColBody{
+    min-width: 320px;
+    width: 320px;
+    max-width: 320px;
+    /* padding: 16px; */
+    border-radius: 12px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+.tskColBody.DONE{
+    background-color: #d7f8df;
+}
+.tskColHeader{
+    font-size: 16px;
+    font-weight: 500;
+    flex-shrink: 0;
+    padding: 12px 12px 0 12px;
+}
+.taskCardContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    overflow-y: auto;
+    padding: 12px;
+}

@@ -1,0 +1,27 @@
+<div class="tskColBody" [ngClass]="status">
+    <div class="tskColHeader">{{title}} {{tasks.length}}</div>
+    <div class="taskCardContainer">
+        <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
+        </div>
+</div>
+<!-- </div>
+<div class="tskCol2 tskColBody">
+    <div class="tskColHeader">In Progress {{inProgressTasks.length}}</div>
+    <div class="taskCardContainer">
+        <app-task-card></app-task-card>
+        
+    </div>
+</div>
+<div class="tskCol3 tskColBody">
+    <div class="tskColHeader">Completed {{doneTasks.length}}</div>
+    <div class="taskCardContainer">
+        <app-task-card></app-task-card>
+    
+    </div>
+</div>
+<div class="tskCol4 tskColBody">
+    <div class="tskColHeader">Backlog {{backlogTasks.length}}</div>
+    <div class="taskCardContainer">
+        <app-task-card></app-task-card>
+    </div>
+</div> -->

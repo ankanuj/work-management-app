@@ -1,0 +1,17 @@
+<div class="task-form">
+    <div class="formBody">
+        <input type="text" name="title" [(ngModel)]="title" placeholder="Create New Task" class="inputBox" />
+        <select [(ngModel)]="priority">
+            <option [value]="taskPriority.low">Low</option>
+            <option [value]="taskPriority.medium">Medium</option>
+            <option [value]="taskPriority.high">High</option>
+        </select>
+        <select [(ngModel)]="status">
+            <option [value]="taskStatus.todo">To Do</option>
+            <option [value]="taskStatus.inProgress">In Progress</option>
+            <option [value]="taskStatus.done">Done</option>
+            <option [value]="taskStatus.backlog">BackLog</option>
+        </select>
+        <button class="submitBtn" (click)="createTask()">Create</button>
+    </div>
+</div> 

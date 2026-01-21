@@ -1,0 +1,22 @@
+<div class="taskBoardBody">
+    <div class="header">
+        <span class="workSpaceTitle">Work Management App</span>
+    </div>
+    <div class="boardContainer">
+        <div class="boardHeader">
+            <p class="boardTitle">My work space</p>
+            <button class="createTaskBtn" (click)="openModal()">New Task</button>
+        </div>
+        <div class="taskContainer">
+            <app-task-column title="TODO" [tasks]="getTodoList()" [status]="taskStatus.todo"></app-task-column>
+            <app-task-column title="INPROGRESS" [tasks]="getInprogressList()" [status]="taskStatus.inProgress"></app-task-column>
+            <app-task-column title="DONE" [tasks]="getDoneList()" [status]="taskStatus.done"></app-task-column>
+            <app-task-column title="BACKLOG" [tasks]="getBacklogList()" [status]="taskStatus.backlog"></app-task-column>
+        </div>
+    </div>
+</div>
+
+<!-- Modals Component are here -->
+<app-task-modal *ngIf="isModalOpen" (close)="closeModal()">
+    <app-task-form (taskCreate)="taskCreated($event)"></app-task-form>
+</app-task-modal>

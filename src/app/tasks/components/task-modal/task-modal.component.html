@@ -1,0 +1,13 @@
+<div class="backdrop" (click)="onClose()">
+    <div class="modalContainer" (click)="$event.stopPropagation()">
+            <div class="modalHeader">
+                <h2 class="modalTitle">Create New Task</h2>
+            </div>
+            <div class="modalBody">
+                <ng-content></ng-content>
+            </div>
+            <!-- <div class="modalFooter">
+                <button class="btn">Submit</button>
+            </div> -->
+    </div>
+</div>

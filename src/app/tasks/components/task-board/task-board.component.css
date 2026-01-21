@@ -1,0 +1,64 @@
+.taskBoardBody{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Header Css */
+.header{
+    height: 60px;
+    min-height: 60px;
+    display: flex;
+    padding: 0 24px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    background-color: cornflowerblue;
+    color: #fff;
+}
+.workSpaceTitle{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+/* Board Css */
+.boardContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 60px);
+}
+.boardHeader{
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.boardTitle{
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+}
+.createTaskBtn{
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.createTaskBtn:hover{
+    background-color: #0056b3;
+}
+.taskContainer{
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 20px;
+    padding: 16px 24px;
+    overflow-x: auto;
+    background-color: #e1e1e1;
+}

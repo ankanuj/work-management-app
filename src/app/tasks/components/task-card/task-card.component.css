@@ -1,0 +1,14 @@
+
+.taskBodyCard{
+    min-height: 30px;
+    padding: 8px;
+    border-radius: 8px;    
+    background-color: #fff;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    flex-shrink: 0;
+}
+.taskBodyCard:hover{
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
