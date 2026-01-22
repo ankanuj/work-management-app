@@ -27,6 +27,13 @@ export class TaskBoardComponent {
   taskStatus = Status;
   Priority = Priority;
 
+  connectedLists = [
+    this.taskStatus.todo,
+    this.taskStatus.inProgress,
+    this.taskStatus.done,
+    this.taskStatus.backlog
+  ];
+
   constructor(private TaskService: TaskService) {}
 
   ngOnInit(){
@@ -69,4 +76,13 @@ export class TaskBoardComponent {
     this.isModalOpen = false;
   }
   
+  updateTask(event:{task: Task, newStatus: Task['status']}){
+    if(event.task.status === event.newStatus) return;
+
+    this.TaskService.updateTaskStatus(
+      event.task.id,
+      event.newStatus
+    );
+    this.refreshLists();
+  }
 }

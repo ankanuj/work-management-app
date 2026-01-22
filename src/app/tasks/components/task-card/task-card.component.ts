@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { Task } from '../../model/task.model';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-task-card',
-  imports: [],
+  imports: [DragDropModule],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.css'
 })

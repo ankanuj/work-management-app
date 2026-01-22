@@ -8,10 +8,10 @@
             <button class="createTaskBtn" (click)="openModal()">New Task</button>
         </div>
         <div class="taskContainer">
-            <app-task-column title="TODO" [tasks]="getTodoList()" [status]="taskStatus.todo"></app-task-column>
-            <app-task-column title="INPROGRESS" [tasks]="getInprogressList()" [status]="taskStatus.inProgress"></app-task-column>
-            <app-task-column title="DONE" [tasks]="getDoneList()" [status]="taskStatus.done"></app-task-column>
-            <app-task-column title="BACKLOG" [tasks]="getBacklogList()" [status]="taskStatus.backlog"></app-task-column>
+            <app-task-column title="TODO" [tasks]="getTodoList()" [status]="taskStatus.todo" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)"></app-task-column>
+            <app-task-column title="INPROGRESS" [tasks]="getInprogressList()" [status]="taskStatus.inProgress" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)"></app-task-column>
+            <app-task-column title="DONE" [tasks]="getDoneList()" [status]="taskStatus.done" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)"></app-task-column>
+            <app-task-column title="BACKLOG" [tasks]="getBacklogList()" [status]="taskStatus.backlog" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)"></app-task-column>
         </div>
     </div>
 </div>

@@ -31,5 +31,12 @@ export class TaskService {
         if(taskData){
             this.tasks = JSON.parse(taskData);
         }
+    }
+    updateTaskStatus(taskId: number, newStatus:Status): void{
+        const task = this.tasks.find( t => t.id === taskId);
+        if(!task) return;
+        task.status = newStatus;
+        this.saveToLocalStorage();
+        
     }      
 }   
