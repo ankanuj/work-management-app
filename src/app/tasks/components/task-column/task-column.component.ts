@@ -27,7 +27,9 @@ export class TaskColumnComponent {
   }>();
 
   onDrop(event: CdkDragDrop<Status>){
+
     const task = event.item.data as Task;
+    
     const fromStatus = event.previousContainer.data;
     const toStatus = event.container.data;
 

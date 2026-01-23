@@ -6,4 +6,5 @@ export interface Task {
     status: Status,
     createDate: Date,
     priority: Priority,
+    completedDate?: Date,
 }

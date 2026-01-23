@@ -37,22 +37,43 @@ export class TaskBoardComponent {
   constructor(private TaskService: TaskService) {}
 
   ngOnInit(){
-    this.TaskService.loadLocalStorgae();
-    this.refreshLists();
+    // this.TaskService.loadLocalStorgae();
+    this.refreshApiLists();
+    this.TaskService.fetchTasks().subscribe((tasks) => {
+      const todoTasks = tasks.filter( t => t.status === this.taskStatus.todo);
+      const inProgressTasks = tasks.filter( t => t.status === this.taskStatus.inProgress);
+      const doneTasks = tasks.filter( t => t.status === this.taskStatus.done);
+      const backlogTasks = tasks.filter( t => t.status === this.taskStatus.backlog);
+    });
   }
   
   taskCreated(data: NewTaskData){
-    this.TaskService.createNewTask(data.title, data.priority, data.status);
-    this.closeModal();
-    this.refreshLists();
+    const newTask : Task = {
+            id: Date.now(),
+            title: data.title,
+            priority: data.priority,
+            createDate: new Date(),
+            status: data.status,
+            completedDate: data.status === Status.done ? new Date() : undefined,
+        };
+    this.TaskService.createNewTask(newTask).subscribe(() => {
+      // this.refreshFromAPI();
+      this.closeModal();
+      this.refreshApiLists();
+    });
   }
-  private refreshLists() {
-    const tasks = this.TaskService.getTasks();
+  private refreshApiLists() {
+    this.TaskService.fetchTasks().subscribe((tasks) => {
+      this.todoTasks = tasks.filter(t => t.status === this.taskStatus.todo);
+      this.inProgressTasks = tasks.filter(t => t.status === this.taskStatus.inProgress);
+      this.doneTasks = tasks.filter(t => t.status === this.taskStatus.done);
+      this.backlogTasks = tasks.filter(t => t.status === this.taskStatus.backlog);
+    });
 
-    this.todoTasks = tasks.filter(t => t.status === this.taskStatus.todo);
-    this.inProgressTasks = tasks.filter(t => t.status === this.taskStatus.inProgress);
-    this.doneTasks = tasks.filter(t => t.status === this.taskStatus.done);
-    this.backlogTasks = tasks.filter(t => t.status === this.taskStatus.backlog);
+    // this.todoTasks = tasks.filter(t => t.status === this.taskStatus.todo);
+    // this.inProgressTasks = tasks.filter(t => t.status === this.taskStatus.inProgress);
+    // this.doneTasks = tasks.filter(t => t.status === this.taskStatus.done);
+    // this.backlogTasks = tasks.filter(t => t.status === this.taskStatus.backlog);
   }
 
   getTodoList(): Task[]{
@@ -78,11 +99,15 @@ export class TaskBoardComponent {
   
   updateTask(event:{task: Task, newStatus: Task['status']}){
     if(event.task.status === event.newStatus) return;
-
-    this.TaskService.updateTaskStatus(
-      event.task.id,
-      event.newStatus
-    );
-    this.refreshLists();
+    const task = this.TaskService.getTasks().find(t => t.id === event.task.id);
+    if(!task) return;
+    this.TaskService.updateTaskStatus(task).subscribe(() => {
+      this.refreshApiLists();
+    })
+    // this.TaskService.updateTaskStatus(
+    //   event.task.id,
+    //   event.newStatus
+    // );
+    // this.refreshLists();
   }
 }

@@ -1,27 +1,26 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Task } from "../model/task.model";
 import { Priority, Status } from "../model/task.constants";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
 })
 export class TaskService {
+    private http = inject(HttpClient);
+    private API = 'http://localhost:3000/tasks';
     private tasks: Task[] = [];
 
     getTasks(): Task[]{
         return [...this.tasks];
     }
+    fetchTasks(){
+        return this.http.get<Task[]>(this.API);
+    }
 
-    createNewTask(task: string, priority:Priority, status:Status): void{
-        const newTask : Task = {
-            id: Date.now(),
-            title: task,
-            priority,
-            createDate: new Date(),
-            status,
-        };
-        this.tasks.push(newTask); 
-        this.saveToLocalStorage();   
+    createNewTask(task: Task){
+        return this.http.post<Task>(this.API, task);
+        // this.saveToLocalStorage();   
     }
     saveToLocalStorage(){
         localStorage.setItem('task', JSON.stringify(this.tasks));
@@ -32,11 +31,13 @@ export class TaskService {
             this.tasks = JSON.parse(taskData);
         }
     }
-    updateTaskStatus(taskId: number, newStatus:Status): void{
-        const task = this.tasks.find( t => t.id === taskId);
-        if(!task) return;
-        task.status = newStatus;
-        this.saveToLocalStorage();
-        
+    updateTaskStatus(task: Task){
+        const updateTask = {
+            ...task,
+            status: task.status,
+            completedDate: task.status === Status.done ? new Date() : undefined,
+        };
+        return this.http.put<Task>(`${this.API}/${task.id}`, updateTask);
+        // this.saveToLocalStorage();        
     }      
 }   

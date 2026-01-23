@@ -1,0 +1,26 @@
+{
+  "tasks": [
+    {
+      "id": 1769073387768,
+      "title": "New task 1 using rest api",
+      "priority": "LOW",
+      "createDate": "2026-01-22T09:16:27.768Z",
+      "status": "TODO"
+    },
+    {
+      "id": 1769073448896,
+      "title": "Second Task using api",
+      "priority": "LOW",
+      "createDate": "2026-01-22T09:17:28.896Z",
+      "status": "TODO"
+    },
+    {
+      "id": 1769073492029,
+      "title": "Completed Task Created inside the Done",
+      "priority": "LOW",
+      "createDate": "2026-01-22T09:18:12.029Z",
+      "status": "DONE",
+      "completedDate": "2026-01-22T09:18:12.029Z"
+    }
+  ]
+}
