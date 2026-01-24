@@ -1,6 +1,6 @@
 <div class="tskColBody" [ngClass]="status" [id]="dropListId" cdkDropList [cdkDropListData]="status" [cdkDropListConnectedTo]="connectedDropLists" (cdkDropListDropped)="onDrop($event)">
     <div class="tskColHeader">{{title}} {{tasks.length}}</div>
     <div class="taskCardContainer">
-        <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
+        <app-task-card *ngFor="let task of tasks" [task]="task" (openTaskModal)="openTaskModal($event)"></app-task-card>
         </div>
 </div>

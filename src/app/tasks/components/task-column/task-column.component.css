@@ -8,6 +8,7 @@
     background-color: #fff;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 .tskColBody.DONE{
     background-color: #d7f8df;

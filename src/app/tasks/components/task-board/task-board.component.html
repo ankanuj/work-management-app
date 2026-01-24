@@ -8,15 +8,28 @@
             <button class="createTaskBtn" (click)="openModal()">New Task</button>
         </div>
         <div class="taskContainer">
-            <app-task-column title="TODO" [tasks]="getTodoList()" [status]="taskStatus.todo" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)"></app-task-column>
-            <app-task-column title="INPROGRESS" [tasks]="getInprogressList()" [status]="taskStatus.inProgress" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)"></app-task-column>
-            <app-task-column title="DONE" [tasks]="getDoneList()" [status]="taskStatus.done" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)"></app-task-column>
-            <app-task-column title="BACKLOG" [tasks]="getBacklogList()" [status]="taskStatus.backlog" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)"></app-task-column>
+            <app-task-column class="h-100" title="TODO" [tasks]="getTodoList()" [status]="taskStatus.todo" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)" (openTask)="editTask($event)"></app-task-column>
+            <app-task-column class="h-100" title="INPROGRESS" [tasks]="getInprogressList()" [status]="taskStatus.inProgress" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)" (openTask)="editTask($event)"></app-task-column>
+            <app-task-column class="h-100" title="DONE" [tasks]="getDoneList()" [status]="taskStatus.done" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)" (openTask)="editTask($event)"></app-task-column>
+            <app-task-column class="h-100" title="BACKLOG" [tasks]="getBacklogList()" [status]="taskStatus.backlog" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)" (openTask)="editTask($event)"></app-task-column>
         </div>
     </div>
 </div>
 
 <!-- Modals Component are here -->
 <app-task-modal *ngIf="isModalOpen" (close)="closeModal()">
-    <app-task-form (taskCreate)="taskCreated($event)"></app-task-form>
+    <span modal-title *ngIf="mode === 'create'" >Create New Task</span>
+    <span modal-title *ngIf="mode === 'edit'" >Task Details</span>
+
+    <app-task-form 
+    *ngIf="mode === 'create'" 
+    (taskCreate)="taskCreated($event)">
+    </app-task-form>
+
+    <app-view-edit-task 
+    class="w-100 h-100 d-flex" 
+    *ngIf="mode === 'edit'" 
+    [task]="selectedTask!" 
+    (taskUpdate)="taskUpdate($event)" >
+    </app-view-edit-task>
 </app-task-modal>

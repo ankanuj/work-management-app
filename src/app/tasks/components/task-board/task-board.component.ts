@@ -6,6 +6,7 @@ import { TaskService } from '../../service/task.service';
 import { Task } from '../../model/task.model';
 import { Priority, Status } from '../../model/task.constants';
 import { TaskColumnComponent } from '../task-column/task-column.component';
+import { ViewEditTaskComponent } from '../view-edit-task/view-edit-task.component';
 
 @Component({
   selector: 'app-task-board',
@@ -13,7 +14,8 @@ import { TaskColumnComponent } from '../task-column/task-column.component';
     TaskFormComponent, 
     TaskModalComponent, 
     CommonModule, 
-    TaskColumnComponent
+    TaskColumnComponent,
+    ViewEditTaskComponent
   ],
   templateUrl: './task-board.component.html',
   styleUrl: './task-board.component.css'
@@ -26,6 +28,8 @@ export class TaskBoardComponent {
   backlogTasks: Task[] = [];
   taskStatus = Status;
   Priority = Priority;
+  mode: 'create' | 'edit' = 'create';
+  selectedTask: Task | null = null;
 
   connectedLists = [
     this.taskStatus.todo,
@@ -37,14 +41,7 @@ export class TaskBoardComponent {
   constructor(private TaskService: TaskService) {}
 
   ngOnInit(){
-    // this.TaskService.loadLocalStorgae();
     this.refreshApiLists();
-    this.TaskService.fetchTasks().subscribe((tasks) => {
-      const todoTasks = tasks.filter( t => t.status === this.taskStatus.todo);
-      const inProgressTasks = tasks.filter( t => t.status === this.taskStatus.inProgress);
-      const doneTasks = tasks.filter( t => t.status === this.taskStatus.done);
-      const backlogTasks = tasks.filter( t => t.status === this.taskStatus.backlog);
-    });
   }
   
   taskCreated(data: NewTaskData){
@@ -57,7 +54,6 @@ export class TaskBoardComponent {
             completedDate: data.status === Status.done ? new Date() : undefined,
         };
     this.TaskService.createNewTask(newTask).subscribe(() => {
-      // this.refreshFromAPI();
       this.closeModal();
       this.refreshApiLists();
     });
@@ -69,11 +65,6 @@ export class TaskBoardComponent {
       this.doneTasks = tasks.filter(t => t.status === this.taskStatus.done);
       this.backlogTasks = tasks.filter(t => t.status === this.taskStatus.backlog);
     });
-
-    // this.todoTasks = tasks.filter(t => t.status === this.taskStatus.todo);
-    // this.inProgressTasks = tasks.filter(t => t.status === this.taskStatus.inProgress);
-    // this.doneTasks = tasks.filter(t => t.status === this.taskStatus.done);
-    // this.backlogTasks = tasks.filter(t => t.status === this.taskStatus.backlog);
   }
 
   getTodoList(): Task[]{
@@ -95,19 +86,30 @@ export class TaskBoardComponent {
 
   closeModal(){
     this.isModalOpen = false;
+    this.mode = 'create';
+    this.refreshApiLists();
   }
   
   updateTask(event:{task: Task, newStatus: Task['status']}){
     if(event.task.status === event.newStatus) return;
-    const task = this.TaskService.getTasks().find(t => t.id === event.task.id);
-    if(!task) return;
-    this.TaskService.updateTaskStatus(task).subscribe(() => {
+    const updatedTask: Task ={
+      ...event.task,
+      status : event.newStatus,
+    };
+    this.TaskService.updateTask(updatedTask).subscribe(() => {
       this.refreshApiLists();
     })
-    // this.TaskService.updateTaskStatus(
-    //   event.task.id,
-    //   event.newStatus
-    // );
-    // this.refreshLists();
+  }
+  taskUpdate(task: Task){
+    this.TaskService.updateTask(task).subscribe(() =>{
+      this.closeModal();
+      this.refreshApiLists;
+    });
+  }
+
+  editTask(task : Task){
+    this.mode = 'edit';
+    this.selectedTask = task;
+    this.openModal();
   }
 }

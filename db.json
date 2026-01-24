@@ -3,9 +3,9 @@
     {
       "id": 1769073387768,
       "title": "New task 1 using rest api",
-      "priority": "LOW",
+      "priority": "MEDIUM",
       "createDate": "2026-01-22T09:16:27.768Z",
-      "status": "TODO"
+      "status": "IN_PROGRESS"
     },
     {
       "id": 1769073448896,
@@ -21,6 +21,27 @@
       "createDate": "2026-01-22T09:18:12.029Z",
       "status": "DONE",
       "completedDate": "2026-01-22T09:18:12.029Z"
+    },
+    {
+      "id": 1769188935882,
+      "title": "Task 2",
+      "priority": "LOW",
+      "createDate": "2026-01-23T17:22:15.882Z",
+      "status": "BACKLOG"
+    },
+    {
+      "id": 1769188941865,
+      "title": "task 4",
+      "priority": "LOW",
+      "createDate": "2026-01-23T17:22:21.865Z",
+      "status": "TODO"
+    },
+    {
+      "id": 1769188946382,
+      "title": "task 5",
+      "priority": "HIGH",
+      "createDate": "2026-01-23T17:22:26.382Z",
+      "status": "TODO"
     }
   ]
 }

@@ -1,7 +1,9 @@
 <div class="backdrop" (click)="onClose()">
     <div class="modalContainer" (click)="$event.stopPropagation()">
             <div class="modalHeader">
-                <h2 class="modalTitle">Create New Task</h2>
+                <h2 class="modalTitle">
+                    <ng-content select="[modal-title]"></ng-content>
+                </h2>
             </div>
             <div class="modalBody">
                 <ng-content></ng-content>

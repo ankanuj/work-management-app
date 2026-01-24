@@ -17,6 +17,8 @@ export class TaskColumnComponent {
   @Input() status!: Status;
   @Input() connectedDropLists: string[] = [];
 
+  @Output() openTask = new EventEmitter<Task>();
+
   get dropListId(): string{
     return this.status;
   }
@@ -27,9 +29,7 @@ export class TaskColumnComponent {
   }>();
 
   onDrop(event: CdkDragDrop<Status>){
-
     const task = event.item.data as Task;
-    
     const fromStatus = event.previousContainer.data;
     const toStatus = event.container.data;
 
@@ -38,5 +38,9 @@ export class TaskColumnComponent {
       task,
       newStatus: toStatus
     });
+  }
+
+  openTaskModal(task: Task){
+    this.openTask.emit(task);
   }
 }

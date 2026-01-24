@@ -1,0 +1,33 @@
+<div class="motaskBody w-100 h-100 d-flex flex-column">
+    <div class="moTaskContainer d-flex flex-column" >
+        <div class="moTaskFieldBox">
+            <input id="task.id" [(ngModel)]= "editableTask.title" class="commonInput" />
+            <!-- <span>{{task.title}}</span> -->
+        </div>
+        <div class="moTaskFieldBox">
+            <select [(ngModel)]="editableTask.priority"]>
+                <option [ngValue]="priority.low">Low</option>
+                <option [ngValue]="priority.medium">Medium</option>
+                <option [ngValue]="priority.high">High</option>
+            </select>
+        </div>
+        <div class="moTaskFieldBox">
+            <select [(ngModel)]="editableTask.status"]>
+                <option [ngValue]="status.todo">Todo</option>
+                <option [ngValue]="status.inProgress">In Progress</option>
+                <option [ngValue]="status.done">Done</option>
+                <option [ngValue]="status.backlog">Backlog</option>
+            </select>
+        </div>
+        <div class="moTaskFieldBox">
+            <span>Created On: {{editableTask.createDate}}</span>
+        </div>
+        <div class="moTaskFieldBox" *ngIf="editableTask.completedDate">
+            <span>Completed On: {{editableTask.completedDate}}</span>
+        </div>
+    </div>
+    <div class="btnContainer d-flex">
+        <button class="btn ghostBtn cancelBtn" (click)="cancel()" [disabled]="!isDirty" [class.active]="isDirty" >cancel</button>
+        <button class="btn primaryBtn saveBtn" (click)="save()" [disabled]="!isDirty" [class.active]="isDirty">Update Task</button>
+    </div>
+</div>
