@@ -112,4 +112,7 @@ export class TaskBoardComponent {
     this.selectedTask = task;
     this.openModal();
   }
+  logout(){
+    console.log("loggedOut");
+  }
 }

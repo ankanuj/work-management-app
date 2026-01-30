@@ -1,0 +1,18 @@
+<div class="loginContainer">
+    <span class="text-danger" *ngIf="error">{{error}}</span>
+    <form>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" [(ngModel)]="email" class="form-control"  placeholder="xyz@domain.com" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" [(ngModel)]="password" class="form-control"  placeholder="password" required/>
+        </div>
+        <button class="form-control btn btn-primary mb-1" (click)="login()" [disabled]="!email || !password">Login</button>
+        <div class="d-flex gap-1">
+            <span>Create New Account</span>
+            <span class="text-primary" type="button" (click)="goToSignup()">Signup</span>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,12 @@
+<section class="authContainer w-100 h-100">
+    <div class="container-fluid d-flex justify-center align-center w-100 h-100">
+        <div class="card authCard p-3">
+            <div class="mb-2 card-title">
+                Welcome Back
+            </div>
+            <!-- <app-login *ngIf="mode === 'login'" (toggleMode)="toggleMode('signup')" (loginUser)="login($event)"></app-login> -->
+            <!-- <app-signup *ngIf="mode === 'signup'" (toggleMode)="toggleMode('login')" (newUserSignup)="signup($event)"></app-signup> -->
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</section>
