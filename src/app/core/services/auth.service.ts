@@ -19,6 +19,7 @@ export class AuthService{
   newUsers(user: User){
     this.users.push(user);
     this.saveUsersToLocaStorage();
+    this.saveLoggedInUser();
   }
 
   loggedIn(user: LoginPayload): LoginResult {

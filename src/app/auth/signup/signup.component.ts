@@ -40,6 +40,7 @@ export class SignupComponent {
     }
     this.authService.newUsers(newUser);
     this.resetValue();
+    this.router.navigate(['/dashboard']);
     }
     else {
       this.erroMsg = 'Confirm Password Did Not match';

@@ -7,6 +7,8 @@ import { Task } from '../../model/task.model';
 import { Priority, Status } from '../../model/task.constants';
 import { TaskColumnComponent } from '../task-column/task-column.component';
 import { ViewEditTaskComponent } from '../view-edit-task/view-edit-task.component';
+import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-board',
@@ -21,6 +23,12 @@ import { ViewEditTaskComponent } from '../view-edit-task/view-edit-task.componen
   styleUrl: './task-board.component.css'
 })
 export class TaskBoardComponent {
+  constructor(
+    private TaskService: TaskService,
+    private authService: AuthService,
+    private router: Router
+  ){}
+
   isModalOpen: boolean = false;
   todoTasks: Task[] = [];
   inProgressTasks: Task[] = [];
@@ -37,8 +45,6 @@ export class TaskBoardComponent {
     this.taskStatus.done,
     this.taskStatus.backlog
   ];
-
-  constructor(private TaskService: TaskService) {}
 
   ngOnInit(){
     this.refreshApiLists();
@@ -113,6 +119,6 @@ export class TaskBoardComponent {
     this.openModal();
   }
   logout(){
-    console.log("loggedOut");
+    this.authService.currentUser = null;
   }
 }
