@@ -119,6 +119,7 @@ export class TaskBoardComponent {
     this.openModal();
   }
   logout(){
-    this.authService.currentUser = null;
+    this.authService.logoutUser();
+    this.router.navigate(['']);
   }
 }

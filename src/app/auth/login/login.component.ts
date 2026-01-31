@@ -1,7 +1,6 @@
 import { CommonModule} from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component,} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LoginPayload } from '../../core/models/auth.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 
@@ -31,8 +30,7 @@ export class LoginComponent {
       password: this.password
     });
     if(result.success){
-      console.log('Logged In Successfully');
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['dashboard']);
     }
     else {
       this.error = result.message;

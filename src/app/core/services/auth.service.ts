@@ -9,8 +9,10 @@ import { LoginPayload, LoginResult } from '../models/auth.model';
   providedIn: 'root'
 })
 export class AuthService{
+
   users: User[] = [];
   currentUser: User | null = null;
+
   // private http = inject(HttpClient);
   // private api = 'http://localhost:3000';
 
@@ -38,6 +40,12 @@ export class AuthService{
       success: true
     }
   }
+
+  logoutUser() {
+    this.currentUser = null;
+    localStorage.removeItem('loggedInUser');
+  }
+
   saveUsersToLocaStorage(){
     localStorage.setItem('user', JSON.stringify(this.users));
   }
@@ -60,4 +68,7 @@ export class AuthService{
     return this.currentUser;
   }
 
+  isLoggedIn(): boolean{
+    return !!localStorage.getItem('loggedInUser');
+  }
 }
