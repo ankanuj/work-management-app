@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewTaskData, TaskFormComponent } from '../task-form/task-form.component';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
@@ -9,6 +9,7 @@ import { TaskColumnComponent } from '../task-column/task-column.component';
 import { ViewEditTaskComponent } from '../view-edit-task/view-edit-task.component';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { User } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-task-board',
@@ -38,6 +39,7 @@ export class TaskBoardComponent {
   Priority = Priority;
   mode: 'create' | 'edit' = 'create';
   selectedTask: Task | null = null;
+  currentUser: User | null =null;
 
   connectedLists = [
     this.taskStatus.todo,
@@ -48,8 +50,10 @@ export class TaskBoardComponent {
 
   ngOnInit(){
     this.refreshApiLists();
+    this.currentUser = this.authService.getLoggedInUsers();
   }
-  
+
+
   taskCreated(data: NewTaskData){
     const newTask : Task = {
             id: Date.now(),
@@ -109,7 +113,7 @@ export class TaskBoardComponent {
   taskUpdate(task: Task){
     this.TaskService.updateTask(task).subscribe(() =>{
       this.closeModal();
-      this.refreshApiLists;
+      this.refreshApiLists();
     });
   }
 
@@ -118,8 +122,5 @@ export class TaskBoardComponent {
     this.selectedTask = task;
     this.openModal();
   }
-  logout(){
-    this.authService.logoutUser();
-    this.router.navigate(['']);
-  }
+
 }

@@ -29,6 +29,7 @@ body{
     color: #000;
 }
 .flex-column{flex-direction: column;}
+.flex-1{flex: 1;}
 .align-center{align-items: center;}
 .justify-center{justify-content: center;}
 .commonInput{

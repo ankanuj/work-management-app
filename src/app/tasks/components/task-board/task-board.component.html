@@ -1,9 +1,4 @@
-<div class="taskBoardBody">
-    <div class="header d-flex align-center justify-space-between">
-        <span class="workSpaceTitle">Work Management App</span>
-        <span class="btn btn-danger" type="button" (click)="logout()">Logout</span>
-    </div>
-    <div class="boardContainer">
+<div class="boardContainer">
         <div class="boardHeader">
             <p class="boardTitle">My work space</p>
             <button class="createTaskBtn" (click)="openModal()">New Task</button>
@@ -15,7 +10,6 @@
             <app-task-column class="h-100" title="BACKLOG" [tasks]="getBacklogList()" [status]="taskStatus.backlog" [connectedDropLists]="connectedLists" (taskDropped)="updateTask($event)" (openTask)="editTask($event)"></app-task-column>
         </div>
     </div>
-</div>
 
 <!-- Modals Component are here -->
 <app-task-modal *ngIf="isModalOpen" (close)="closeModal()">

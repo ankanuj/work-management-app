@@ -5,6 +5,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { authGuard } from './core/guard/auth.guard';
 import { loginGuard } from './core/guard/login.guard';
+import { userProfileGuard } from './core/guard/user-profile.guard';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { MainLayoutComponent } from './main-layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
     {
@@ -16,6 +19,15 @@ export const routes: Routes = [
             {path: 'signup', component: SignupComponent, canActivate: [loginGuard]},
         ]
     },
-    {path: 'dashboard', component: TaskBoardComponent, canActivate: [authGuard]},
+    {
+        path:'',
+        component: MainLayoutComponent,
+        children: [
+            {path: 'dashboard', component: TaskBoardComponent, canActivate: [authGuard]},
+            {path: 'user-profile', component: UserProfileComponent, canActivate: [userProfileGuard]},
+
+        ]
+    },
+    
     {path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];
