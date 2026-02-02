@@ -17,8 +17,28 @@ export class UserProfileComponent {
     private authService: AuthService
   ){}
   currentUser: User | null = null;
+  updateUser: User | null = null;
+  newPassword: string = '';
+  cfmPassword: string = '';
 
   ngOnInit(){
+    this.refreshUser();
+    this.updateUser = structuredClone(this.currentUser);
+  }
+  get isDirty() : boolean {
+    return JSON.stringify(this.currentUser) !== JSON.stringify(this.updateUser);
+  }
+  refreshUser(){
     this.currentUser = this.authService.getLoggedInUsers();
+  }
+  update(){
+    if(!this.updateUser?.name.trim()){
+      return alert('Name Can Not Be Empty');
+    }
+    this.authService.updateUser(this.updateUser);
+    this.refreshUser();
+  }
+  cancel(){
+    this.updateUser = structuredClone(this.currentUser);
   }
 }

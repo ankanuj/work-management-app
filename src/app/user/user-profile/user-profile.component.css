@@ -1,0 +1,21 @@
+.userProfileContainer{
+    background-color: #e1e1e1;
+    padding: 20px;
+}
+.userProfileBody{
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+}
+.userDetails{
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
+.formField{
+    min-height: 52px;
+    height: 52px;
+}

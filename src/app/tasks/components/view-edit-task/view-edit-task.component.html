@@ -5,14 +5,14 @@
             <!-- <span>{{task.title}}</span> -->
         </div>
         <div class="moTaskFieldBox">
-            <select [(ngModel)]="editableTask.priority"]>
+            <select [(ngModel)]="editableTask.priority">
                 <option [ngValue]="priority.low">Low</option>
                 <option [ngValue]="priority.medium">Medium</option>
                 <option [ngValue]="priority.high">High</option>
             </select>
         </div>
         <div class="moTaskFieldBox">
-            <select [(ngModel)]="editableTask.status"]>
+            <select [(ngModel)]="editableTask.status">
                 <option [ngValue]="status.todo">Todo</option>
                 <option [ngValue]="status.inProgress">In Progress</option>
                 <option [ngValue]="status.done">Done</option>

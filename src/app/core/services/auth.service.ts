@@ -71,4 +71,16 @@ export class AuthService{
   isLoggedIn(): boolean{
     return !!localStorage.getItem('loggedInUser');
   }
+  updateUser(user : User){
+    this.users = this.getUsers();
+    const updateUs = this.users.find(u => u.email === user.email);
+    if(updateUs){
+      updateUs.name = user.name;
+      this.saveLoggedInUser; 
+    }
+    if(this.currentUser){
+      this.currentUser.name = user.name;
+      this.saveLoggedInUser();
+    }
+  }
 }
