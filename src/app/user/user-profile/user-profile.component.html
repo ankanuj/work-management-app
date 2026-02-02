@@ -3,7 +3,7 @@
         <div class="userDetails flex-1">
             <ng-container *ngIf="updateUser">
                 <input [(ngModel)]="updateUser.name" name="name" class="form-control formField" type="text"/>
-                <input [(ngModel)]="updateUser.email" name="email" class="form-control formField" disabled type="email"/>
+                <input [(ngModel)]="updateUser.email" name="email" class="form-control formField text-secondary" disabled type="email"/>
             </ng-container>
             <!-- <p class="strong m-0">Change Password</p>
             <input [(ngModel)]="newPassword" name="password" class="form-control formField" type="password" placeholder="New Password" />

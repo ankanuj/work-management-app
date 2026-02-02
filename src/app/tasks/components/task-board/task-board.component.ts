@@ -39,7 +39,7 @@ export class TaskBoardComponent {
   Priority = Priority;
   mode: 'create' | 'edit' = 'create';
   selectedTask: Task | null = null;
-  currentUser: User | null =null;
+  currentUser?: User | null;
 
   connectedLists = [
     this.taskStatus.todo,
@@ -50,7 +50,9 @@ export class TaskBoardComponent {
 
   ngOnInit(){
     this.refreshApiLists();
-    this.currentUser = this.authService.getLoggedInUsers();
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+    })
   }
 
 
@@ -62,6 +64,7 @@ export class TaskBoardComponent {
             createDate: new Date(),
             status: data.status,
             completedDate: data.status === Status.done ? new Date() : undefined,
+            userEmail: this.currentUser!.email
         };
     this.TaskService.createNewTask(newTask).subscribe(() => {
       this.closeModal();

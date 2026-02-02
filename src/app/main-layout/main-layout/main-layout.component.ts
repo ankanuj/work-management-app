@@ -20,10 +20,9 @@ export class MainLayoutComponent {
   currentUser: User | null =null;
 
   ngOnInit(){
-    this.refreshUser();
-  }
-  refreshUser(){
-    this.currentUser = this.authService.getLoggedInUsers();
+   this.authService.currentUser$.subscribe( user => {
+    this.currentUser = user;
+   });
   }
   goToUserProfile(){
     this.router.navigate(['/user-profile']);

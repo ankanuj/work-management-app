@@ -15,13 +15,22 @@ export class AuthService{
 
   // private http = inject(HttpClient);
   // private api = 'http://localhost:3000';
+  private currentUserSubject = new BehaviorSubject<User |null>(null);
+  currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor() { }
+  constructor() {
+    const user = localStorage.getItem('loggedInUser');
+    if(user){
+      this.currentUser = JSON.parse(user);
+      this.currentUserSubject.next(this.currentUser);
+    }
+   }
 
   newUsers(user: User){
     this.users.push(user);
     this.saveUsersToLocaStorage();
     this.saveLoggedInUser();
+    this.currentUserSubject.next(user);
   }
 
   loggedIn(user: LoginPayload): LoginResult {
@@ -35,6 +44,7 @@ export class AuthService{
     };
     this.currentUser = data;
     this.saveLoggedInUser();
+    this.currentUserSubject.next(this.currentUser);
 
     return {
       success: true
@@ -60,10 +70,12 @@ export class AuthService{
     }
     return this.users;
   }
+
   getLoggedInUsers() {
     const user = localStorage.getItem('loggedInUser');
     if(user){
       this.currentUser = JSON.parse(user);
+      this.currentUserSubject.next(this.currentUser);
     }
     return this.currentUser;
   }
@@ -71,16 +83,18 @@ export class AuthService{
   isLoggedIn(): boolean{
     return !!localStorage.getItem('loggedInUser');
   }
+
   updateUser(user : User){
     this.users = this.getUsers();
     const updateUs = this.users.find(u => u.email === user.email);
     if(updateUs){
       updateUs.name = user.name;
-      this.saveLoggedInUser; 
+      this.saveUsersToLocaStorage();
     }
     if(this.currentUser){
       this.currentUser.name = user.name;
       this.saveLoggedInUser();
+      this.currentUserSubject.next(this.currentUser);
     }
   }
 }
