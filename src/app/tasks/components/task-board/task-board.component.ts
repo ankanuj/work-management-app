@@ -49,12 +49,11 @@ export class TaskBoardComponent {
   ];
 
   ngOnInit(){
-    this.refreshApiLists();
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     })
+    this.refreshApiLists();
   }
-
 
   taskCreated(data: NewTaskData){
     const newTask : Task = {
@@ -64,19 +63,22 @@ export class TaskBoardComponent {
             createDate: new Date(),
             status: data.status,
             completedDate: data.status === Status.done ? new Date() : undefined,
-            userEmail: this.currentUser!.email
+            userId: this.currentUser!.id
         };
     this.TaskService.createNewTask(newTask).subscribe(() => {
       this.closeModal();
       this.refreshApiLists();
     });
   }
+  
   private refreshApiLists() {
+    if(!this.currentUser) return;
     this.TaskService.fetchTasks().subscribe((tasks) => {
-      this.todoTasks = tasks.filter(t => t.status === this.taskStatus.todo);
-      this.inProgressTasks = tasks.filter(t => t.status === this.taskStatus.inProgress);
-      this.doneTasks = tasks.filter(t => t.status === this.taskStatus.done);
-      this.backlogTasks = tasks.filter(t => t.status === this.taskStatus.backlog);
+      const userTasks = tasks.filter(t => t.userId === this.currentUser!.id);
+      this.todoTasks = userTasks.filter(t => t.status === this.taskStatus.todo);
+      this.inProgressTasks = userTasks.filter(t => t.status === this.taskStatus.inProgress);
+      this.doneTasks = userTasks.filter(t => t.status === this.taskStatus.done);
+      this.backlogTasks = userTasks.filter(t => t.status === this.taskStatus.backlog);
     });
   }
 

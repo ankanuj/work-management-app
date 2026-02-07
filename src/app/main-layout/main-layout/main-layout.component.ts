@@ -24,6 +24,9 @@ export class MainLayoutComponent {
     this.currentUser = user;
    });
   }
+  goToBoard(){
+    this.router.navigate(['/dashboard'])
+  }
   goToUserProfile(){
     this.router.navigate(['/user-profile']);
   }

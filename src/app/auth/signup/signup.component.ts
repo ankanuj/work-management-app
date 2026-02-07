@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../core/models/user.model';
-import { SignupPayload } from '../../core/models/auth.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 
@@ -28,23 +27,35 @@ export class SignupComponent {
   goToLogin(){
     this.router.navigate(['/login']);
   }
+ singup() {
+  if (!this.name.trim() || !this.email.trim() || !this.password.trim()) {
+    return;
+  }
 
-  singup(){
-    if(!this.name.trim() || !this.email.trim() || !this.password.trim()) return;
-    if(this.password === this.cfmPassword){
-      const newUser : User = {
-        id: Date.now(),
-        name: this.name,
-        email: this.email,
-        password: this.password
+  if (this.password !== this.cfmPassword) {
+    this.erroMsg = 'Confirm Password did not match';
+    return;
+  }
+
+  const newUser: Omit<User, 'id'> = {
+    name: this.name,
+    email: this.email,
+    password: this.password
+  };
+
+  this.authService.newUsers(newUser).subscribe({
+    next: () => {
+      this.resetValue();
+      this.router.navigate(['/login']);
+    },
+    error: (err) => {
+      if (err.status === 409) {
+        this.erroMsg = 'Email already exists';
+      } else {
+        this.erroMsg = 'Signup failed. Please try again.';
+      }
     }
-    this.authService.newUsers(newUser);
-    this.resetValue();
-    this.router.navigate(['/dashboard']);
-    }
-    else {
-      this.erroMsg = 'Confirm Password Did Not match';
-    }
+    });
   }
 
   resetValue(){

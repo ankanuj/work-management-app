@@ -7,5 +7,5 @@ export interface Task {
     createDate: Date,
     priority: Priority,
     completedDate?: Date,
-    userEmail: string,
+    userId: number,
 }

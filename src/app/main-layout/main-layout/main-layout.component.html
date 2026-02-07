@@ -1,7 +1,10 @@
 <div class="taskBoardBody">
     <div class="header d-flex align-center justify-space-between">
-        <span class="workSpaceTitle">Work Management App</span>
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-5 align-center">
+            <span class="workSpaceTitle">Work Management App</span>
+            <span type="button" class="text-light" (click)="goToBoard()">Board</span>
+        </div>
+        <div class="d-flex gap-3 align-center">
             <span type="button" *ngIf="currentUser" (click)="goToUserProfile()">{{currentUser.name}}</span>
             <span class="btn btn-danger" type="button" (click)="logout()">Logout</span>
         </div>

@@ -9,7 +9,7 @@ export interface SignupPayload{
     password: string,
 }
 
-export interface LoginResult{
-    success: boolean,
-    message?: string
-}
+// export interface LoginResult{
+//     success: boolean,
+//     message?: string
+// }

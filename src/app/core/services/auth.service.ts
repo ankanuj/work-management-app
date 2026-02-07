@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
 import { User } from '../models/user.model';
-import { LoginPayload, LoginResult } from '../models/auth.model';
+import { LoginPayload } from '../models/auth.model';
 
 
 @Injectable({
@@ -11,56 +11,54 @@ import { LoginPayload, LoginResult } from '../models/auth.model';
 export class AuthService{
 
   users: User[] = [];
-  currentUser: User | null = null;
 
-  // private http = inject(HttpClient);
-  // private api = 'http://localhost:3000';
+  private http = inject(HttpClient);
+  private api = 'http://localhost:3000/users';
   private currentUserSubject = new BehaviorSubject<User |null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
   constructor() {
     const user = localStorage.getItem('loggedInUser');
     if(user){
-      this.currentUser = JSON.parse(user);
-      this.currentUserSubject.next(this.currentUser);
+      this.currentUserSubject.next(JSON.parse(user));
     }
    }
 
-  newUsers(user: User){
-    this.users.push(user);
-    this.saveUsersToLocaStorage();
-    this.saveLoggedInUser();
-    this.currentUserSubject.next(user);
+  newUsers(user: Omit<User, 'id'>){
+    return this.http.post<User>(`${this.api}/users`, user);
   }
 
-  loggedIn(user: LoginPayload): LoginResult {
-    this.getUsers();
-    const data = this.users.find(u => (user.email === u.email && user.password === u.password))
-    if(!data){
-      return {
-        success : false,
-        message : 'invaid user email or password'
-      }
-    };
-    this.currentUser = data;
-    this.saveLoggedInUser();
-    this.currentUserSubject.next(this.currentUser);
-
-    return {
-      success: true
+  loggedIn(user: LoginPayload){
+    return this.http.get<User[]>(this.api, {
+      params: {
+        email : user.email,
+        password : user.password,
     }
+    }).pipe(
+      tap(
+        users => {
+          if (users.length) {
+            localStorage.setItem('loggedInUser', JSON.stringify(users[0]));
+            this.currentUserSubject.next(users[0]);
+          }
+        })
+    )
   }
 
   logoutUser() {
-    this.currentUser = null;
     localStorage.removeItem('loggedInUser');
+    this.currentUserSubject.next(null);
   }
-
-  saveUsersToLocaStorage(){
-    localStorage.setItem('user', JSON.stringify(this.users));
-  }
-  saveLoggedInUser(){
-    localStorage.setItem('loggedInUser', JSON.stringify(this.currentUser));
+  updateUser(user : User){
+    return this.http.patch<User>(
+      `http://localhost:3000/users/${user.id}`,
+      { name: user.name }
+    ).pipe(
+      tap(updated => {
+        localStorage.setItem('loggedInUser', JSON.stringify(updated));
+        this.currentUserSubject.next(updated);
+      })
+    );
   }
 
   getUsers() {
@@ -70,31 +68,10 @@ export class AuthService{
     }
     return this.users;
   }
-
-  getLoggedInUsers() {
-    const user = localStorage.getItem('loggedInUser');
-    if(user){
-      this.currentUser = JSON.parse(user);
-      this.currentUserSubject.next(this.currentUser);
-    }
-    return this.currentUser;
+  getCurrentUserSnapshot() {
+    return this.currentUserSubject.value;
   }
-
   isLoggedIn(): boolean{
-    return !!localStorage.getItem('loggedInUser');
-  }
-
-  updateUser(user : User){
-    this.users = this.getUsers();
-    const updateUs = this.users.find(u => u.email === user.email);
-    if(updateUs){
-      updateUs.name = user.name;
-      this.saveUsersToLocaStorage();
-    }
-    if(this.currentUser){
-      this.currentUser.name = user.name;
-      this.saveLoggedInUser();
-      this.currentUserSubject.next(this.currentUser);
-    }
+    return !!this.currentUserSubject.value;
   }
 }

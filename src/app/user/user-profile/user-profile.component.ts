@@ -35,7 +35,9 @@ export class UserProfileComponent {
     if(!this.updateUser?.name.trim()){
       return alert('Name Can Not Be Empty');
     }
-    this.authService.updateUser(this.updateUser);
+    this.authService.updateUser(this.updateUser).subscribe({
+      next: () => alert('User Updated Successfully')
+    });
   }
   cancel(){
     this.updateUser = structuredClone(this.currentUser);

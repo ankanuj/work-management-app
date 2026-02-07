@@ -1,54 +1,46 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "name": "Anuj",
+      "email": "anuj@test.com",
+      "password": "123456"
+    },
+    {
+      "id": 1770105685706,
+      "name": "Manish Singh",
+      "email": "manish@test.com",
+      "password": "manish"
+    },
+    {
+      "id": 1770108013909,
+      "name": "Ankit",
+      "email": "ankit@test.com",
+      "password": "ankit"
+    },
+    {
+      "name": "Ankit",
+      "email": "ankit@test.com",
+      "password": "1234",
+      "id": 1770108013910
+    }
+  ],
   "tasks": [
     {
-      "id": 1769073387768,
-      "title": "New task 1 using rest api",
-      "priority": "MEDIUM",
-      "createDate": "2026-01-22T09:16:27.768Z",
-      "status": "IN_PROGRESS"
-    },
-    {
-      "id": 1769073448896,
-      "title": "Second Task using api",
+      "id": 1770105979589,
+      "title": "Test task",
       "priority": "LOW",
-      "createDate": "2026-01-22T09:17:28.896Z",
-      "status": "TODO"
+      "createDate": "2026-02-03T08:06:19.589Z",
+      "status": "TODO",
+      "userId": 1770105685706
     },
     {
-      "id": 1769073492029,
-      "title": "Completed Task Created inside the Done",
+      "id": 1770108044388,
+      "title": "New Test task",
       "priority": "LOW",
-      "createDate": "2026-01-22T09:18:12.029Z",
-      "status": "DONE",
-      "completedDate": "2026-01-22T09:18:12.029Z"
-    },
-    {
-      "id": 1769188935882,
-      "title": "Task 2",
-      "priority": "LOW",
-      "createDate": "2026-01-23T17:22:15.882Z",
-      "status": "BACKLOG"
-    },
-    {
-      "id": 1769188941865,
-      "title": "task 4",
-      "priority": "LOW",
-      "createDate": "2026-01-23T17:22:21.865Z",
-      "status": "TODO"
-    },
-    {
-      "id": 1769188946382,
-      "title": "task 5",
-      "priority": "HIGH",
-      "createDate": "2026-01-23T17:22:26.382Z",
-      "status": "TODO"
-    },
-    {
-      "id": 1769621397729,
-      "title": "asdsad",
-      "priority": "MEDIUM",
-      "createDate": "2026-01-28T17:29:57.729Z",
-      "status": "TODO"
+      "createDate": "2026-02-03T08:40:44.388Z",
+      "status": "TODO",
+      "userId": 1770108013909
     }
   ]
 }

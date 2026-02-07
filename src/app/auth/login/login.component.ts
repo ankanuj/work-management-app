@@ -3,6 +3,7 @@ import { Component,} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { LoginPayload } from '../../core/models/auth.model';
 
 @Component({
   selector: 'app-login',
@@ -25,16 +26,23 @@ export class LoginComponent {
   }
 
   login(){
-    const result = this.authService.loggedIn({
-      email: this.email,
-      password: this.password
-    });
-    if(result.success){
-      this.router.navigate(['dashboard']);
+    const payload : LoginPayload = {
+      email : this.email,
+      password : this.password
     }
-    else {
-      this.error = result.message;
-    }
+    this.authService.loggedIn(payload).subscribe({
+      next: (user) => {
+        if(user.length){
+          this.router.navigate(['/dashboard']);
+        }
+        else {
+          this.error = 'email or password is wrong';
+        }
+      },
+      error: () => {
+        this.error = 'something went wrong, please try again later';
+      }
+    })
   }
 
 }
