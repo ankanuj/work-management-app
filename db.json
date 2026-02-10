@@ -41,6 +41,30 @@
       "createDate": "2026-02-03T08:40:44.388Z",
       "status": "TODO",
       "userId": 1770108013909
+    },
+    {
+      "id": 1770697583128,
+      "title": "New Task",
+      "priority": "LOW",
+      "createDate": "2026-02-10T04:26:23.128Z",
+      "status": "TODO",
+      "userId": 1
+    },
+    {
+      "id": 1770697628794,
+      "title": "Task 2 ",
+      "priority": "MEDIUM",
+      "createDate": "2026-02-10T04:27:08.794Z",
+      "status": "TODO",
+      "userId": 1
+    },
+    {
+      "id": 1770697636362,
+      "title": "Task 3",
+      "priority": "LOW",
+      "createDate": "2026-02-10T04:27:16.362Z",
+      "status": "IN_PROGRESS",
+      "userId": 1
     }
   ]
 }
